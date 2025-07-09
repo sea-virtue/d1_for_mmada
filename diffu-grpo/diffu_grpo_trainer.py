@@ -84,7 +84,7 @@ class DiffuGRPOTrainer(GRPOTrainer):
             callbacks=callbacks,
             optimizers=optimizers,
             peft_config=peft_config,
-            model_init_kwargs=model_init_kwargs,
+            #model_init_kwargs=model_init_kwargs,
         )
 
     @profiling_decorator
