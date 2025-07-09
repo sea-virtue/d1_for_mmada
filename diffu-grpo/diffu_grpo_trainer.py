@@ -2,7 +2,8 @@ import torch
 from trl.trainer.grpo_trainer import GRPOTrainer
 from typing import Any, Callable, Optional, Union, Sized
 import numpy as np
-from transformers import PreTrainedModel, PreTrainedTokenizerBase, TrainerCallback, Trainer
+#from transformers import PreTrainedModel, PreTrainedTokenizerBase, TrainerCallback, Trainer
+from modelscope import PreTrainedModel, PreTrainedTokenizerBase, TrainerCallback, Trainer
 from datasets import Dataset, IterableDataset
 import warnings
 import torch.nn.functional as F
@@ -63,7 +64,14 @@ class DiffuGRPOTrainer(GRPOTrainer):
             None,
         ),
         peft_config: Optional["PeftConfig"] = None,
+        # 新增：允许用户传递额外的模型初始化参数（可选，默认为空字典）
+        model_init_kwargs: Optional[dict] = None,
     ):
+        # 处理 model_init_kwargs：如果用户未传递，则初始化为空字典
+        if model_init_kwargs is None:
+            model_init_kwargs = {}
+        # 强制添加 trust_remote_code=True 到参数中（确保覆盖用户可能的设置）
+        model_init_kwargs["trust_remote_code"] = True
         # Initialize the parent class
         super().__init__(
             model=model,
@@ -76,6 +84,7 @@ class DiffuGRPOTrainer(GRPOTrainer):
             callbacks=callbacks,
             optimizers=optimizers,
             peft_config=peft_config,
+            model_init_kwargs=model_init_kwargs,
         )
 
     @profiling_decorator

@@ -2,7 +2,8 @@ import torch
 import numpy as np
 import torch.nn.functional as F
 
-from transformers import AutoTokenizer, AutoModel
+#from transformers import AutoTokenizer, AutoModel
+from modelscope import AutoTokenizer, AutoModel
 from tqdm import tqdm
 import time
 import random

@@ -1,6 +1,7 @@
 import torch
 import wandb
-from transformers import AutoTokenizer, AutoModel, BitsAndBytesConfig
+#from transformers import AutoTokenizer, AutoModel, BitsAndBytesConfig
+from modelscope import AutoTokenizer, AutoModel, BitsAndBytesConfig
 from trl import TrlParser, ModelConfig
 from peft import LoraConfig
 
@@ -81,8 +82,8 @@ def main(grpo_config, model_config):
         grpo_config.model_path,
         trust_remote_code=True,
         torch_dtype=torch.bfloat16,
-        quantization_config=bnb_config,
-    ).to(device)
+        #quantization_config=bnb_config,
+    )#.to(device)
 
     tokenizer = AutoTokenizer.from_pretrained(grpo_config.model_path, trust_remote_code=True)
     tokenizer.pad_token = tokenizer.eos_token

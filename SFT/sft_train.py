@@ -1,6 +1,10 @@
+import os
+os.environ["HF_ENDPOINT"] = "https://hf-mirror.com"
+
 import torch
 import argparse
-from transformers import AutoTokenizer, AutoModel, TrainingArguments
+#from transformers import AutoTokenizer, AutoModel, TrainingArguments
+from modelscope import AutoTokenizer, AutoModel, TrainingArguments
 from datasets import load_dataset
 from torch.utils.data import DataLoader
 from peft import LoraConfig, get_peft_model, TaskType
@@ -26,7 +30,7 @@ def parse_args():
 
     # Hyperparameters
     parser.add_argument(
-        "--model_name", type=str, default="GSAI-ML/LLaDA-8B-Instruct", help="Name of the pretrained model"
+        "--model_name", type=str, default="Gen-Verse/MMaDA-8B-MixCoT", help="Name of the pretrained model"
     )
     parser.add_argument("--batch_size", type=int, default=1, help="Batch size for training")
     parser.add_argument(

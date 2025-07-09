@@ -15,8 +15,8 @@
 from dataclasses import dataclass, field
 from typing import Optional
 
-from transformers import TrainingArguments
-
+#from transformers import TrainingArguments
+from modelscope import TrainingArguments
 
 @dataclass
 class DiffuGRPOConfig(TrainingArguments):
